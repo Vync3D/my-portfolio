@@ -21,6 +21,7 @@ function App() {
         <div className="logo">Vince Dayapan</div>
         <div className="nav-links">
           <a href="#about" className="nav-link">About</a>
+          <a href="#experience" className="nav-link">Experience</a>
           <a href="#projects" className="nav-link">Projects</a>
           <a href="#gallery" className="nav-link">Hobbies</a>
         </div>
@@ -32,10 +33,13 @@ function App() {
           <div className="hero-content">
             <h1>About Me</h1>
             <p>
-              I'm a product designer passionate about creating meaningful digital experiences. 
-              With expertise in UX strategy, interface design, and design systems, I help brands 
-              build products that users love. My approach combines research-driven insights with 
-              creative problem-solving to deliver solutions that are both beautiful and functional.
+              I’m a 4th-year Information Technology student passionate about software development, UI/UX design, 
+              and creating practical tech solutions. I recently completed a 4-month IT Support internship, 
+              where I gained hands-on experience in troubleshooting, system maintenance, 
+              and providing technical assistance to ensure smooth operations. Adaptable and eager to learn, 
+              I enjoy collaborating on projects that strengthen my coding, problem-solving, and user-focused design skills. 
+              With a solid foundation in web development, human-computer interaction, and IT support, 
+              I’m now looking to further grow as a versatile IT professional and developer.
             </p>
 
             <div className="hero-social-links">
@@ -92,6 +96,43 @@ function App() {
               {["VS Code", "Git", "GitHub", "Claude AI", "Figma", "Lucidchart"].map((tool) => (
                 <div className="tech-item" key={tool}>{tool}</div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="experience-section">
+        <div className="experience-container">
+          <h2 className="section-title">Professional Experience</h2>
+          
+          <div className="experience-card">
+            <div className="experience-header">
+              <div className="experience-title-group">
+                <h3 className="experience-role">IT Support Intern</h3>
+                <p className="experience-company">Tech Solutions Inc.</p>
+              </div>
+              <div className="experience-duration">November 2025 - February 2026</div>
+            </div>
+            
+            <div className="experience-description">
+              <ul className="experience-responsibilities">
+                <li>Provided helpdesk support, resolving 25+ tickets weekly across hardware and software issues</li>
+                <li>Maintained IT inventory management system tracking 500+ company assets including laptops, monitors, and peripherals</li>
+                <li>Performed system administration tasks including user account management in Active Directory and software deployment</li>
+                <li>Assisted with network setup and maintenance, ensuring 99.5% uptime across all offices</li>
+                <li>Troubleshot hardware issues for desktops, laptops, printers, and other IT equipment</li>
+                <li>Created comprehensive documentation and user guides for common technical issues, reducing repeat tickets by 30%</li>
+              </ul>
+            </div>
+
+            <div className="experience-skills">
+              <h4 className="experience-skills-title">Tools & Technologies</h4>
+              <div className="experience-skills-grid">
+                {["Windows 10/11", "macOS", "Active Directory", "ServiceNow", "Network Troubleshooting", "Hardware Diagnostics", "Microsoft 365", "Asset Management"].map((skill) => (
+                  <div className="experience-skill-item" key={skill}>{skill}</div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
