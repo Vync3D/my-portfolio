@@ -8,9 +8,174 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: #fafafa;
     color: #1a1a1a;
+    transition: background 0.3s, color 0.3s;
 }
 
-/* Navigation */
+/* =============================================
+   DARK MODE
+   ============================================= */
+
+body.dark {
+    background: #111111;
+    color: #e8e8e8;
+}
+
+body.dark nav {
+    background: #1a1a1a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+body.dark .logo {
+    color: #e8e8e8;
+}
+
+body.dark .nav-link {
+    color: #e8e8e8;
+}
+
+body.dark .dark-toggle {
+    background: #2a2a2a;
+    color: #e8e8e8;
+    border-color: #3a3a3a;
+}
+
+body.dark .dark-toggle:hover {
+    background: #333;
+}
+
+body.dark .hero {
+    background: #1a1a1a;
+}
+
+body.dark .hero-content h1 {
+    color: #e8e8e8;
+}
+
+body.dark .hero-content p {
+    color: #aaaaaa;
+}
+
+body.dark .hero-social-icon {
+    background: #2a2a2a;
+    color: #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+body.dark .hero-social-icon:hover {
+    background: #333;
+}
+
+body.dark .hero-image {
+    border-color: #2a2a2a;
+}
+
+body.dark .section-title {
+    color: #e8e8e8;
+}
+
+body.dark .techstack-section {
+    background: #141414;
+}
+
+body.dark .techstack-category-title {
+    color: #e8e8e8;
+}
+
+body.dark .tech-item {
+    background: #2a2a2a;
+    color: #cccccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+body.dark .experience-section {
+    background: #1a1a1a;
+}
+
+body.dark .experience-card {
+    background: #222222;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+body.dark .experience-role {
+    color: #e8e8e8;
+}
+
+body.dark .experience-company {
+    color: #888888;
+}
+
+body.dark .experience-duration {
+    background: #2a2a2a;
+    color: #aaaaaa;
+}
+
+body.dark .experience-responsibilities li {
+    color: #aaaaaa;
+}
+
+body.dark .experience-responsibilities li:before {
+    color: #e8e8e8;
+}
+
+body.dark .experience-skills-title {
+    color: #e8e8e8;
+}
+
+body.dark .experience-skill-item {
+    background: #2a2a2a;
+    color: #cccccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+body.dark .projects-section {
+    background: #1a1a1a;
+}
+
+body.dark .project-card {
+    background: #222222;
+}
+
+body.dark .project-image-screenshot {
+    background: #2a2a2a;
+}
+
+body.dark .project-screenshot {
+    background: #2a2a2a;
+}
+
+body.dark .project-title {
+    color: #e8e8e8;
+}
+
+body.dark .project-description {
+    color: #888888;
+}
+
+body.dark .gallery-section {
+    background: #141414;
+}
+
+body.dark .gallery-card {
+    background: #222222;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+body.dark .gallery-image-real {
+    background: #2a2a2a;
+}
+
+body.dark .gallery-title {
+    color: #e8e8e8;
+}
+
+body.dark footer {
+    background: #0d0d0d;
+}
+
+/* =============================================
+   NAVIGATION
+   ============================================= */
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -45,7 +210,31 @@ nav {
     opacity: 0.6;
 }
 
-/* Hero Section (About Me) */
+/* Dark mode toggle button */
+.dark-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+    flex-shrink: 0;
+}
+
+.dark-toggle:hover {
+    transform: scale(1.1);
+    background: #f0f0f0;
+}
+
+/* =============================================
+   HERO SECTION (About Me)
+   ============================================= */
+
 .hero {
     padding: 6rem 4rem;
     background: #fff;
@@ -134,7 +323,10 @@ nav {
     filter: brightness(1.02) contrast(1.05);
 }
 
-/* Section Titles */
+/* =============================================
+   SECTION TITLES
+   ============================================= */
+
 .section-title {
     font-size: 2.5rem;
     font-weight: 700;
@@ -142,7 +334,10 @@ nav {
     color: #1a1a1a;
 }
 
-/* Tech Stack Section */
+/* =============================================
+   TECH STACK
+   ============================================= */
+
 .techstack-section {
     padding: 6rem 4rem;
     background: #f8f8f8;
@@ -190,7 +385,10 @@ nav {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Experience Section */
+/* =============================================
+   EXPERIENCE
+   ============================================= */
+
 .experience-section {
     padding: 6rem 4rem;
     background: #fff;
@@ -305,22 +503,10 @@ nav {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Responsive adjustments for Experience */
-@media (max-width: 768px) {
-    .experience-header {
-        flex-direction: column;
-    }
-    
-    .experience-duration {
-        align-self: flex-start;
-    }
-    
-    .experience-role {
-        font-size: 1.5rem;
-    }
-}
+/* =============================================
+   PROJECTS
+   ============================================= */
 
-/* Projects Section */
 .projects-section {
     padding: 6rem 4rem;
     background: #fff;
@@ -384,7 +570,10 @@ nav {
     line-height: 1.6;
 }
 
-/* Gallery Section */
+/* =============================================
+   GALLERY
+   ============================================= */
+
 .gallery-section {
     padding: 6rem 4rem;
     background: #fafafa;
@@ -416,17 +605,6 @@ nav {
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-.gallery-image {
-    width: 100%;
-    height: 300px;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    color: white;
-}
-
 .gallery-image-real {
     width: 100%;
     height: 300px;
@@ -446,7 +624,10 @@ nav {
     font-size: 1.1rem;
 }
 
-/* Lightbox */
+/* =============================================
+   LIGHTBOX
+   ============================================= */
+
 .lightbox {
     display: none;
     position: fixed;
@@ -494,7 +675,10 @@ nav {
     font-weight: 500;
 }
 
-/* Contact Section */
+/* =============================================
+   CONTACT
+   ============================================= */
+
 .contact-section {
     padding: 6rem 4rem;
     background: #fff;
@@ -534,7 +718,10 @@ nav {
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
 }
 
-/* Footer */
+/* =============================================
+   FOOTER
+   ============================================= */
+
 footer {
     padding: 2rem 4rem;
     background: #1a1a1a;
@@ -545,4 +732,211 @@ footer {
 footer p {
     font-size: 0.95rem;
     opacity: 0.8;
+}
+
+/* =============================================
+   RESPONSIVE — Tablet (≤ 1024px)
+   ============================================= */
+
+@media (max-width: 1024px) {
+    nav {
+        padding: 1.5rem 2.5rem;
+    }
+
+    .hero {
+        padding: 4rem 2.5rem;
+    }
+
+    .hero-wrapper {
+        gap: 3rem;
+    }
+
+    .hero-image {
+        width: 240px;
+        height: 240px;
+    }
+
+    .techstack-section,
+    .experience-section,
+    .projects-section,
+    .gallery-section {
+        padding: 4rem 2.5rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =============================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================= */
+
+@media (max-width: 768px) {
+
+    nav {
+        padding: 1.25rem 1.5rem;
+        flex-wrap: nowrap;
+        gap: 1rem;
+    }
+
+    .logo {
+        font-size: 1rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .nav-links {
+        gap: 1.25rem;
+        flex-shrink: 1;
+    }
+
+    .nav-link {
+        font-size: 0.875rem;
+    }
+
+    .dark-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .hero {
+        padding: 3rem 1.5rem;
+    }
+
+    .hero-wrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-social-links {
+        justify-content: center;
+    }
+
+    .hero-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .techstack-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .experience-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .experience-card {
+        padding: 1.75rem;
+    }
+
+    .experience-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .experience-duration {
+        align-self: flex-start;
+    }
+
+    .experience-role {
+        font-size: 1.4rem;
+    }
+
+    .projects-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        margin-top: 2rem;
+    }
+
+    .gallery-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    footer {
+        padding: 1.5rem;
+    }
+}
+
+/* =============================================
+   RESPONSIVE — Small mobile (≤ 480px)
+   ============================================= */
+
+@media (max-width: 480px) {
+    nav {
+        padding: 1rem 1.25rem;
+    }
+
+    .nav-links {
+        gap: 0.875rem;
+    }
+
+    .nav-link {
+        font-size: 0.8rem;
+    }
+
+    .hero {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+
+    .hero-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .techstack-section,
+    .experience-section,
+    .projects-section,
+    .gallery-section {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .experience-card {
+        padding: 1.25rem;
+    }
+
+    .experience-role {
+        font-size: 1.25rem;
+    }
+
+    .tech-item,
+    .experience-skill-item {
+        font-size: 0.875rem;
+        padding: 0.6rem 1rem;
+    }
 }

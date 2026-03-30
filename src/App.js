@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 
 function App() {
   const [lightbox, setLightbox] = useState({ open: false, img: "", title: "" });
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   const openLightbox = (imgSrc, title) => {
     setLightbox({ open: true, img: imgSrc, title });
@@ -25,6 +34,31 @@ function App() {
           <a href="#projects" className="nav-link">Projects</a>
           <a href="#gallery" className="nav-link">Hobbies</a>
         </div>
+        <button
+          className="dark-toggle"
+          onClick={() => setDarkMode(!darkMode)}
+          aria-label="Toggle dark mode"
+        >
+          {darkMode ? (
+            /* Sun icon */
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          ) : (
+            /* Moon icon */
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          )}
+        </button>
       </nav>
 
       {/* About Section */}
@@ -33,13 +67,13 @@ function App() {
           <div className="hero-content">
             <h1>About Me</h1>
             <p>
-              I’m a 4th-year Information Technology student passionate about software development, UI/UX design, 
-              and creating practical tech solutions. I recently completed a 4-month IT Support internship, 
-              where I gained hands-on experience in troubleshooting, system maintenance, 
-              and providing technical assistance to ensure smooth operations. Adaptable and eager to learn, 
-              I enjoy collaborating on projects that strengthen my coding, problem-solving, and user-focused design skills. 
-              With a solid foundation in web development, human-computer interaction, and IT support, 
-              I’m now looking to further grow as a versatile IT professional and developer.
+              I'm a fresh graduate with a Bachelor of Science in Information Technology.
+              My experience is a bit of a mix — I've worked in BPO as an IT tech support,
+              so I'm comfortable dealing with technical issues, troubleshooting, and keeping
+              things running. On the side, I also enjoy frontend development, particularly
+              the UI part where I get to design and build things people actually interact with.
+              I'm not locked into one path — whether it's a support role or a frontend position,
+              I'm happy to bring what I know to the table.
             </p>
 
             <div className="hero-social-links">
@@ -104,17 +138,17 @@ function App() {
       {/* Experience Section */}
       <section id="experience" className="experience-section">
         <div className="experience-container">
-          <h2 className="section-title">Professional Experience</h2>
-          
+          <h2 className="section-title">Work Experience</h2>
+
           <div className="experience-card">
             <div className="experience-header">
               <div className="experience-title-group">
                 <h3 className="experience-role">IT Support Intern</h3>
-                <p className="experience-company">Tech Solutions Inc.</p>
+                <p className="experience-company">Infocom Technologies Inc. / Inspiro</p>
               </div>
               <div className="experience-duration">November 2025 - February 2026</div>
             </div>
-            
+
             <div className="experience-description">
               <ul className="experience-responsibilities">
                 <li>Provided helpdesk support, resolving 25+ tickets weekly across hardware and software issues</li>
