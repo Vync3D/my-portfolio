@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
- 
+
 function App() {
   const [lightbox, setLightbox] = useState({ open: false, img: "", title: "" });
   const [darkMode, setDarkMode] = useState(false);
- 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark");
@@ -12,64 +13,58 @@ function App() {
       document.body.classList.remove("dark");
     }
   }, [darkMode]);
- 
+
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setMenuOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [menuOpen]);
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    setMenuOpen(false);
+    setTimeout(() => {
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 300); // wait for menu close animation
   };
- 
+
   const openLightbox = (imgSrc, title) => {
     setLightbox({ open: true, img: imgSrc, title });
     document.body.style.overflow = "hidden";
   };
- 
+
   const closeLightbox = () => {
     setLightbox({ open: false, img: "", title: "" });
     document.body.style.overflow = "auto";
   };
- 
+
   const skillCategories = [
-    {
-      title: "Programming Languages",
-      items: ["JavaScript", "TypeScript", "Java", "C", "C++", "SQL"],
-    },
-    {
-      title: "Frameworks & Libraries",
-      items: ["React.js", "Vue.js", "Next.js", "Vite"],
-    },
-    {
-      title: "Tools & Platforms",
-      items: ["Git", "GitHub", "Firebase Firestore", "Vercel", "npm"],
-    },
-    {
-      title: "Web Development",
-      items: ["HTML", "CSS", "Tailwind CSS", "Web Application Development"],
-    },
-    {
-      title: "Database Management",
-      items: ["MySQL", "IBM DB2", "SQL Server Management"],
-    },
-    {
-      title: "Software & Systems",
-      items: ["Windows OS Installation & Configuration"],
-    },
-    {
-      title: "Networking & Hardware",
-      items: ["Basic Network Configuration", "Troubleshooting", "Computer Maintenance"],
-    },
-    {
-      title: "Data & Visualization",
-      items: ["Tableau", "Lucidchart", "Figma"],
-    },
-    {
-      title: "Additional Skills",
-      items: ["Unity", "Visual Basic", "Video Editing (Canva)"],
-    },
+    { title: "Programming Languages", items: ["JavaScript", "TypeScript", "Java", "C", "C++", "SQL"] },
+    { title: "Frameworks & Libraries", items: ["React.js", "Vue.js", "Next.js", "Vite"] },
+    { title: "Tools & Platforms", items: ["Git", "GitHub", "Firebase Firestore", "Vercel", "npm"] },
+    { title: "Web Development", items: ["HTML", "CSS", "Tailwind CSS", "Web Application Development"] },
+    { title: "Database Management", items: ["MySQL", "IBM DB2", "SQL Server Management"] },
+    { title: "Software & Systems", items: ["Windows OS Installation & Configuration"] },
+    { title: "Networking & Hardware", items: ["Basic Network Configuration", "Troubleshooting", "Computer Maintenance"] },
+    { title: "Data & Visualization", items: ["Tableau", "Lucidchart", "Figma"] },
+    { title: "Additional Skills", items: ["Unity", "Visual Basic", "Video Editing (Canva)"] },
   ];
- 
+
   const projects = [
     {
       href: "https://knotpedia-flame.vercel.app/",
@@ -113,44 +108,113 @@ function App() {
       isOJTracker: true,
     },
   ];
- 
+
+  const navItems = [
+    { label: "About", id: "about" },
+    { label: "Skills", id: "techstack" },
+    { label: "Experience", id: "experience" },
+    { label: "Projects", id: "projects" },
+    { label: "Hobbies", id: "gallery" },
+  ];
+
   return (
     <>
       {/* Navigation */}
       <nav>
         <div className="logo">Vince Dayapan</div>
+
+        {/* Desktop nav links */}
         <div className="nav-links">
-          <a href="#about" className="nav-link" onClick={(e) => handleNavClick(e, "about")}>About</a>
-          <a href="#techstack" className="nav-link" onClick={(e) => handleNavClick(e, "techstack")}>Skills</a>
-          <a href="#experience" className="nav-link" onClick={(e) => handleNavClick(e, "experience")}>Experience</a>
-          <a href="#projects" className="nav-link" onClick={(e) => handleNavClick(e, "projects")}>Projects</a>
-          <a href="#gallery" className="nav-link" onClick={(e) => handleNavClick(e, "gallery")}>Hobbies</a>
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="nav-link"
+              onClick={(e) => handleNavClick(e, item.id)}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
-        <button
-          className="dark-toggle"
-          onClick={() => setDarkMode(!darkMode)}
-          aria-label="Toggle dark mode"
-        >
-          {darkMode ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/>
-              <line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/>
-              <line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          )}
-        </button>
+
+        {/* Right side: dark toggle + hamburger */}
+        <div className="nav-right">
+          <button
+            className="dark-toggle"
+            onClick={() => setDarkMode(!darkMode)}
+            aria-label="Toggle dark mode"
+          >
+            {darkMode ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            )}
+          </button>
+
+          {/* Hamburger button — mobile only */}
+          <button
+            className="hamburger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
+            <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
+            <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
+          </button>
+        </div>
       </nav>
- 
+
+      {/* Mobile overlay backdrop */}
+      <div
+        className={`menu-backdrop ${menuOpen ? "visible" : ""}`}
+        onClick={() => setMenuOpen(false)}
+      />
+
+      {/* Mobile slide-in menu */}
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        <div className="mobile-menu-header">
+          <span className="mobile-menu-logo">Vince Dayapan</span>
+          <button
+            className="mobile-menu-close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <nav className="mobile-menu-nav">
+          {navItems.map((item, index) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="mobile-nav-link"
+              style={{ animationDelay: `${index * 0.07}s` }}
+              onClick={(e) => handleNavClick(e, item.id)}
+            >
+              <span className="mobile-nav-number">0{index + 1}</span>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
       {/* About Section */}
       <section id="about" className="hero">
         <div className="hero-wrapper">
@@ -195,7 +259,7 @@ function App() {
           </div>
         </div>
       </section>
- 
+
       {/* Skills Section */}
       <section id="techstack" className="techstack-section">
         <div className="techstack-container">
@@ -214,7 +278,7 @@ function App() {
           </div>
         </div>
       </section>
- 
+
       {/* Experience Section */}
       <section id="experience" className="experience-section">
         <div className="experience-container">
@@ -248,7 +312,7 @@ function App() {
           </div>
         </div>
       </section>
- 
+
       {/* Projects */}
       <section id="projects" className="projects-section">
         <div className="projects-container">
@@ -264,15 +328,12 @@ function App() {
               >
                 <div className="project-image-screenshot">
                   {project.isOJTracker ? (
-                    /* Illustrated placeholder for OJTracker */
                     <div className="ojtracker-placeholder">
                       <div className="ojtracker-icon">
-                        {/* Location pin SVG */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
                           <circle cx="12" cy="9" r="2.5"/>
                         </svg>
-                        {/* Clock SVG */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="12" cy="12" r="10"/>
                           <polyline points="12 6 12 12 16 14"/>
@@ -298,7 +359,7 @@ function App() {
           </div>
         </div>
       </section>
- 
+
       {/* Gallery */}
       <section id="gallery" className="gallery-section">
         <div className="gallery-container">
@@ -326,7 +387,7 @@ function App() {
           </div>
         </div>
       </section>
- 
+
       {/* Lightbox */}
       {lightbox.open && (
         <div className="lightbox" onClick={closeLightbox} style={{ display: 'flex' }}>
@@ -335,7 +396,7 @@ function App() {
           <div className="lightbox-caption">{lightbox.title}</div>
         </div>
       )}
- 
+
       {/* Footer */}
       <footer>
         <p>&copy; 2025 Vince Dayapan. All rights reserved.</p>
@@ -343,5 +404,5 @@ function App() {
     </>
   );
 }
- 
+
 export default App;
