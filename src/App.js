@@ -40,7 +40,7 @@ function App() {
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    }, 300); // wait for menu close animation
+    }, 300);
   };
 
   const openLightbox = (imgSrc, title) => {
@@ -99,7 +99,7 @@ function App() {
       tags: ["React.js", "Firebase", "Maps"],
     },
     {
-      href: "https://github.com/Vync3D",
+      href: "https://infocom-ojt-system-kal5.vercel.app/",
       img: "/images/info.png",
       alt: "OJTracker",
       title: "OJTracker",
@@ -137,7 +137,7 @@ function App() {
           ))}
         </div>
 
-        {/* Right side: dark toggle + hamburger */}
+        {/* Right side: dark toggle (desktop only) + hamburger (mobile only) */}
         <div className="nav-right">
           <button
             className="dark-toggle"
@@ -163,7 +163,7 @@ function App() {
             )}
           </button>
 
-          {/* Hamburger button — mobile only */}
+          {/* Hamburger — mobile only */}
           <button
             className="hamburger"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -185,20 +185,22 @@ function App() {
 
       {/* Mobile slide-in menu */}
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+
+        {/* Header: just the close button, no name */}
         <div className="mobile-menu-header">
-          <span className="mobile-menu-logo">Vince Dayapan</span>
           <button
             className="mobile-menu-close"
             onClick={() => setMenuOpen(false)}
             aria-label="Close menu"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
         </div>
 
+        {/* Nav links — no numbers */}
         <nav className="mobile-menu-nav">
           {navItems.map((item, index) => (
             <a
@@ -208,11 +210,38 @@ function App() {
               style={{ animationDelay: `${index * 0.07}s` }}
               onClick={(e) => handleNavClick(e, item.id)}
             >
-              <span className="mobile-nav-number">0{index + 1}</span>
               {item.label}
             </a>
           ))}
         </nav>
+
+        {/* Footer: dark mode toggle inside the menu */}
+        <div className="mobile-menu-footer">
+          <button
+            className="mobile-dark-toggle"
+            onClick={() => setDarkMode(!darkMode)}
+            aria-label="Toggle dark mode"
+          >
+            {darkMode ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            )}
+          </button>
+          <span className="mobile-dark-label">{darkMode ? "Light mode" : "Dark mode"}</span>
+        </div>
       </div>
 
       {/* About Section */}
@@ -293,18 +322,15 @@ function App() {
             </div>
             <div className="experience-description">
               <ul className="experience-responsibilities">
-                <li>Provided helpdesk support, resolving 25+ tickets weekly across hardware and software issues</li>
-                <li>Maintained IT inventory management system tracking 500+ company assets including laptops, monitors, and peripherals</li>
-                <li>Performed system administration tasks including user account management in Active Directory and software deployment</li>
-                <li>Assisted with network setup and maintenance, ensuring 99.5% uptime across all offices</li>
-                <li>Troubleshot hardware issues for desktops, laptops, printers, and other IT equipment</li>
-                <li>Created comprehensive documentation and user guides for common technical issues, reducing repeat tickets by 30%</li>
+                <li>Managed IT system administration tasks, including Active Directory user account management and software deployment across the organization</li>
+                <li>Maintained and optimized an asset management system tracking 500+ company devices, improving inventory accuracy and accountability</li>
+                <li>Reduced system downtime and improved operational efficiency by ensuring timely deployments and user support</li>
               </ul>
             </div>
             <div className="experience-skills">
               <h4 className="experience-skills-title">Tools & Technologies</h4>
               <div className="experience-skills-grid">
-                {["Windows 10/11", "macOS", "Active Directory", "ServiceNow", "Network Troubleshooting", "Hardware Diagnostics", "Microsoft 365", "Asset Management"].map((skill) => (
+                {["Windows 10/11", "Active Directory", "Network Troubleshooting", "Hardware Diagnostics", "Asset Management"].map((skill) => (
                   <div className="experience-skill-item" key={skill}>{skill}</div>
                 ))}
               </div>
