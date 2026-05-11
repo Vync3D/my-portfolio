@@ -425,7 +425,7 @@ function App() {
 
       {/* Footer */}
       <footer>
-        <p>&copy; 2025 Vince Dayapan. All rights reserved.</p>
+        <p>&copy; 2026 Vince Dayapan. All rights reserved.</p>
       </footer>
     </>
   );
