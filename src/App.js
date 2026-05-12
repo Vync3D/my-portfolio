@@ -105,7 +105,6 @@ function App() {
       title: "OJTracker",
       description: "A web-based OJT attendance tracker powered by Firebase. Features a GPS-based location check on Time In — if the intern is outside the office perimeter, the button is rejected and they're notified to be on-site first.",
       tags: ["React.js", "Firebase", "Geolocation"],
-      isOJTracker: true,
     },
   ];
 
