@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./styles.css";
 
 function App() {
@@ -52,6 +52,11 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  const closeLightbox = useCallback(() => {
+    setLightbox({ open: false, img: "", title: "" });
+    document.body.style.overflow = "auto";
+  }, []);
+
   // ESC key handler for lightbox
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -79,10 +84,6 @@ function App() {
     document.body.style.overflow = "hidden";
   };
 
-  const closeLightbox = useCallback(() => {
-    setLightbox({ open: false, img: "", title: "" });
-    document.body.style.overflow = "auto";
-  }, []);
 
   const skillCategories = [
     { title: "Programming Languages", items: ["JavaScript", "TypeScript", "Java", "C", "C++", "SQL"] },
