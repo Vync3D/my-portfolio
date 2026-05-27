@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./styles.css";
 
 function App() {
   const [lightbox, setLightbox] = useState({ open: false, img: "", title: "" });
   const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const animatedRefs = useRef([]);
 
   useEffect(() => {
     if (darkMode) {
@@ -32,6 +33,37 @@ function App() {
     }
   }, [menuOpen]);
 
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".animate-on-scroll");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  // ESC key handler for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && lightbox.open) {
+        closeLightbox();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightbox.open]);
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     setMenuOpen(false);
@@ -48,10 +80,10 @@ function App() {
     document.body.style.overflow = "hidden";
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightbox({ open: false, img: "", title: "" });
     document.body.style.overflow = "auto";
-  };
+  }, []);
 
   const skillCategories = [
     { title: "Programming Languages", items: ["JavaScript", "TypeScript", "Java", "C", "C++", "SQL"] },
@@ -185,7 +217,7 @@ function App() {
       {/* Mobile slide-in menu */}
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
 
-        {/* Header: just the close button, no name */}
+        {/* Header: just the close button */}
         <div className="mobile-menu-header">
           <button
             className="mobile-menu-close"
@@ -199,7 +231,7 @@ function App() {
           </button>
         </div>
 
-        {/* Nav links — no numbers */}
+        {/* Nav links */}
         <nav className="mobile-menu-nav">
           {navItems.map((item, index) => (
             <a
@@ -243,11 +275,13 @@ function App() {
         </div>
       </div>
 
-      {/* About Section */}
+      {/* Hero / About Section */}
       <section id="about" className="hero">
         <div className="hero-wrapper">
           <div className="hero-content">
-            <h1>About Me</h1>
+            <span className="hero-greeting">Hi, I'm</span>
+            <h1>Vince Dayapan</h1>
+            <span className="hero-tagline">Frontend Developer & IT Support</span>
             <p>
               I'm a fresh graduate with a Bachelor of Science in Information Technology.
               My experience is a bit of a mix — I've worked in BPO as an IT tech support,
@@ -283,7 +317,7 @@ function App() {
             </div>
           </div>
           <div className="hero-image">
-            <img src="/images/mebato.png" alt="Profile" />
+            <img src="/images/mebato.png" alt="Vince Dayapan" />
           </div>
         </div>
       </section>
@@ -291,10 +325,10 @@ function App() {
       {/* Skills Section */}
       <section id="techstack" className="techstack-section">
         <div className="techstack-container">
-          <h2 className="section-title">Skills & Interests</h2>
+          <h2 className="section-title animate-on-scroll">Skills & Interests</h2>
           <div className="skills-grid">
-            {skillCategories.map((category) => (
-              <div className="skill-category-card" key={category.title}>
+            {skillCategories.map((category, index) => (
+              <div className={`skill-category-card animate-on-scroll`} key={category.title} style={{ transitionDelay: `${index * 0.05}s` }}>
                 <h3 className="skill-category-title">{category.title}</h3>
                 <div className="skill-tags">
                   {category.items.map((item) => (
@@ -310,8 +344,8 @@ function App() {
       {/* Experience Section */}
       <section id="experience" className="experience-section">
         <div className="experience-container">
-          <h2 className="section-title">Work Experience</h2>
-          <div className="experience-card">
+          <h2 className="section-title animate-on-scroll">Work Experience</h2>
+          <div className="experience-card animate-on-scroll">
             <div className="experience-header">
               <div className="experience-title-group">
                 <h3 className="experience-role">IT Support Intern</h3>
@@ -341,34 +375,24 @@ function App() {
       {/* Projects */}
       <section id="projects" className="projects-section">
         <div className="projects-container">
-          <h2 className="section-title">Projects & Applications</h2>
+          <h2 className="section-title animate-on-scroll">Projects & Applications</h2>
           <div className="projects-grid">
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <a
                 key={project.title}
                 href={project.href}
                 target="_blank"
                 rel="noreferrer"
-                className={`project-card${project.isOJTracker ? " project-card--featured" : ""}`}
+                className="project-card animate-on-scroll"
+                style={{ transitionDelay: `${index * 0.08}s` }}
               >
                 <div className="project-image-screenshot">
-                  {project.isOJTracker ? (
-                    <div className="ojtracker-placeholder">
-                      <div className="ojtracker-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                          <circle cx="12" cy="9" r="2.5"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="12" r="10"/>
-                          <polyline points="12 6 12 12 16 14"/>
-                        </svg>
-                      </div>
-                      <span className="ojtracker-label">OJTracker</span>
-                    </div>
-                  ) : (
-                    <img src={project.img} alt={project.alt} className="project-screenshot" />
-                  )}
+                  <img
+                    src={project.img}
+                    alt={project.alt}
+                    className="project-screenshot"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="project-content">
                   <h3 className="project-title">{project.title}</h3>
@@ -388,7 +412,7 @@ function App() {
       {/* Gallery */}
       <section id="gallery" className="gallery-section">
         <div className="gallery-container">
-          <h2 className="section-title">Digital Art & Posters</h2>
+          <h2 className="section-title animate-on-scroll">Digital Art & Posters</h2>
           <div className="gallery-grid">
             {[
               { img: "codm.png", title: "Codm Tryout" },
@@ -397,14 +421,20 @@ function App() {
               { img: "room.png", title: "Room Poster" },
               { img: "mv.png", title: "Movie Night Poster" },
               { img: "MLBB.png", title: "MLBB Design" }
-            ].map((item) => (
+            ].map((item, index) => (
               <div
                 key={item.title}
-                className="gallery-card"
+                className="gallery-card animate-on-scroll"
+                style={{ transitionDelay: `${index * 0.08}s` }}
                 onClick={() => openLightbox(`/images/${item.img}`, item.title)}
               >
                 <div className="gallery-image-real">
-                  <img src={`/images/${item.img}`} alt={item.title} className="gallery-img" />
+                  <img
+                    src={`/images/${item.img}`}
+                    alt={item.title}
+                    className="gallery-img"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="gallery-title">{item.title}</div>
               </div>
