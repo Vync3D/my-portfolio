@@ -5,7 +5,6 @@ function App() {
   const [lightbox, setLightbox] = useState({ open: false, img: "", title: "" });
   const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const animatedRefs = useRef([]);
 
   useEffect(() => {
     if (darkMode) {
@@ -62,7 +61,7 @@ function App() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightbox.open]);
+  }, [lightbox.open, closeLightbox]);
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
